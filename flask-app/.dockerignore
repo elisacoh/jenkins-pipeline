@@ -1,0 +1,38 @@
+__pycache__/
+*.pyc
+.env
+*.md
+
+# Python caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Tests / dev-only
+test_*.py
+tests/
+*.pytest_cache/
+.pytest_cache/
+.venv/
+
+# Local / editor
+.vscode/
+.idea/
+.DS_Store
+
+# Git
+.git/
+.gitignore
+
+# Secrets / env
+.env
+*.pem
+*.key
+
+# Docker / compose files (optional)
+Dockerfile
+docker-compose.yml
+deploy/
+
+elisa_usr@*

@@ -1,0 +1,27 @@
+#nginx/docker-compose.yml
+
+services:
+    web:
+        build:
+            context: ..
+            dockerfile: Dockerfile
+        image: flask-app:clean
+        expose:
+            - "5000"
+        restart: unless-stopped
+        environment:
+            - PYTHONBUFFERED=1
+            - PYTHONDONTWRITEBYTECODE=1
+
+    nginx:
+        image: nginx:alpine
+        container_name: flaskApp-nginx
+        depends_on:
+            - web
+        ports:
+            - "8989:80"
+        restart: unless-stopped
+        volumes:
+            - ./nginx-lb.conf:/etc/nginx/conf.d/default.conf:ro
+
+
