@@ -61,10 +61,13 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            echo "Done"
-        }
+post {
+    success {
+        build job: 'job2-build-nginx'
     }
+    always {
+        echo "Done"
+    }
+}
 
 }

@@ -50,6 +50,9 @@ pipeline {
         }
     }
     post {
+        success {
+            build job: 'job3-integration-test'
+        }
         always {
             echo "Done"
         }
