@@ -50,6 +50,8 @@ pipeline {
         }
     }
     post {
-        always {}
+        always {
+            echo "Done"
+        }
     }
 }
