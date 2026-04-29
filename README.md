@@ -25,8 +25,8 @@ The push stage in job1 and job2 is only when `/main` branch; builds happen on ev
 ### Flask app
 
 The app exposes two endpoints:
-- `/containers` — queries the local Docker engine and returns the list of running containers
-- `/health` — used by Kubernetes probes
+- `/containers` : queries the local Docker engine and returns the list of running containers
+- `/health` : used by Kubernetes probes
 
 I also added `/metrics` (Prometheus format) which i used later for KEDA trigger in Part 2.
 
