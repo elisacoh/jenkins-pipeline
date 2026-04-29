@@ -60,7 +60,7 @@ pipeline {
                     docker run -d \
                         --name $NGINX_CONTAINER \
                         --network $NETWORK \
-                        -p 127.0.0.1:$NGINX_PORT:80 \
+                        -p $NGINX_PORT:80 \
                         $NGINX_IMAGE
                 '''
             }
