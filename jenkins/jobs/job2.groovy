@@ -1,0 +1,55 @@
+// job2:
+// - build custom nginx image and push to docker hub
+
+pipeline {
+    agent {label 'docker'}
+    environment {
+        IMAGE = "elcosah/nginx-elbit"
+    }
+    stages {
+        stage('INFO') {
+            steps {
+                script {
+                    env.TAG = env.GIT_COMMIT.take(7)
+                }
+                sh 'echo "TAG=$TAG"'
+                sh 'echo "IMAGE=$IMAGE"'
+            }
+        }
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Build') {
+            steps {
+                echo "Build custom nginx image"
+                sh '''
+                    set -eux
+                    docker build -t "$IMAGE:$TAG" ./nginx
+                '''
+            }
+        }
+        stage('Push') {
+            when {
+                expression { return (env.GIT_BRANCH ?: '') == 'origin/main' }
+            }
+            steps {
+                echo "Push nginx image to Docker Hub"
+                withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'DH_USER', passwordVariable: 'DH_PASS')]) {
+                    sh '''
+                        set -eux
+                        echo "$DH_PASS" | docker login -u "$DH_USER" --password-stdin
+                        docker push "$IMAGE:$TAG"
+                        docker tag "$IMAGE:$TAG" "$IMAGE:latest"
+                        docker push "$IMAGE:latest"
+                        docker logout
+                    '''
+                }
+            }
+        }
+    }
+    post {
+        always {}
+    }
+}

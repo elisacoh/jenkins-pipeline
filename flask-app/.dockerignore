@@ -31,7 +31,7 @@ tests/
 *.key
 
 # Docker / compose files (optional)
-Dockerfile
+Dockerfile.multistage
 docker-compose.yml
 deploy/
 
