@@ -1,4 +1,4 @@
-# Home Assignment – Elbit DevOps
+# Jenkins Pipeline with seed job
 
 ## What I built
 
